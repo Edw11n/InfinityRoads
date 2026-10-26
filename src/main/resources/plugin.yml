@@ -1,0 +1,39 @@
+name: InfinityRoads
+version: '${project.version}'
+main: com.infinityroads.InfinityRoadsPlugin
+api-version: '26.3'
+author: GameWriter
+description: Cuatro carreteras procedurales infinitas cardinales con proteccion absoluta de volumen vertical y pavimento flotante a Y=62.
+
+commands:
+  ir:
+    description: Interfaz administrativa principal de InfinityRoads
+    aliases: [infinityroads]
+    permission: infinityroads.admin
+    usage: /<command> [admin on|admin off|status|chunks|reload]
+
+permissions:
+  infinityroads.admin:
+    description: Acceso administrativo general a las herramientas de InfinityRoads
+    default: op
+    children:
+      infinityroads.maintenance: true
+      infinityroads.bypass: true
+      infinityroads.reload: true
+      infinityroads.chunks: true
+
+  infinityroads.maintenance:
+    description: Permite activar o desactivar la sesion individual de mantenimiento (/ir admin on/off)
+    default: op
+
+  infinityroads.bypass:
+    description: Permite omitir la proteccion de InfinityRoads unicamente mientras el modo mantenimiento este activo
+    default: op
+
+  infinityroads.reload:
+    description: Permite recargar la configuracion del plugin (/ir reload)
+    default: op
+
+  infinityroads.chunks:
+    description: Permite previsualizar y procesar por lotes chunks preexistentes (/ir chunks ...)
+    default: op

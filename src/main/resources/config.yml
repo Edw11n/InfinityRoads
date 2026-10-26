@@ -1,0 +1,95 @@
+# ==============================================================
+#           INFINITY ROADS - CONFIGURACIÓN CONSOLIDADA
+# ==============================================================
+
+# Mundo de supervivencia objetivo
+world-name: "world"
+enabled: true
+
+# Observabilidad y registro en producción
+logging:
+  # Activa logs detallados de diagnóstico (DEBUG/FINE) en consola.
+  # Desactivado por defecto (false) para mantener la consola libre de ruido innecesario en producción.
+  debug: false
+
+# Control del Spawn y Zona de Exclusión
+spawn:
+  center-x: 0
+  center-z: 0
+  # Cuadrado inclusivo excluido: [-100, 100] en X y Z (Intocable por el plugin)
+  protection-radius: 100
+
+# Parámetros geométricos inmutables
+geometry:
+  # Cota fija de la superficie del pavimento (los pies del jugador transitan en Y=63)
+  fixed-y-level: 62
+  # Ancho horizontal exacto (5 bloques a cada lado del eje central)
+  pavement-width: 11
+  # Gálibo mínimo requerido para tránsito libre (Y=63 a Y=67)
+  # Nota: El despeje a cielo abierto retira bloques hasta world.getMaxHeight() - 1
+  min-clearance-height: 5
+
+# Definición de corredores cardinales (comienzan estrictamente fuera del spawn)
+corridors:
+  north:
+    direction: NORTH
+    material: "YELLOW_CONCRETE"
+    start-z: -101
+  south:
+    direction: SOUTH
+    material: "BLUE_CONCRETE"
+    start-z: 101
+  east:
+    direction: EAST
+    material: "RED_CONCRETE"
+    start-x: 101
+  west:
+    direction: WEST
+    material: "GREEN_CONCRETE"
+    start-x: -101
+
+# Contención de fluidos (Agua y Lava)
+fluids:
+  containment:
+    # Impide que fluidos exteriores crucen la frontera hacia los 11 bloques
+    block-flow-into-corridor: true
+    # Bloquea cubos de agua/lava vaciados dentro del corredor protegido
+    block-buckets-into-corridor: true
+    # Bloquea dispensadores apuntando hacia la vía
+    block-dispensers-into-corridor: true
+    # Saneamiento diferido seguro no recursivo (exclusivo para Y >= 62)
+    safe-deferred-sanitization: true
+
+# Excavación superior a cielo abierto (únicamente Y >= 63 dentro de los 11 bloques)
+# NOTA: Prohibido modificar cualquier bloque por debajo de Y=62.
+terrain:
+  excavation:
+    open-cut-skyward: true
+
+# Mantenimiento administrativo
+maintenance:
+  # Tiempo de auto-expiración de la sesión individual en minutos
+  auto-expiration-minutes: 15
+  # Registro detallado de acciones en audit.log
+  audit-log: true
+
+# Control de rendimiento y presupuesto de trabajo por tick
+performance:
+  # Presupuesto máximo de tiempo en ms por tick en el hilo principal
+  max-ms-per-tick: 3.0
+  # Límite máximo de bloques mutados por tick
+  max-blocks-per-tick: 512
+  # Límite de TPS para pausar automáticamente el procesamiento de chunks antiguos
+  tps-throttle-threshold: 19.0
+  # Modo seguro: nunca procesar chunks existentes de forma automática
+  auto-process-existing-chunks: false
+
+# Procesamiento por lotes de chunks preexistentes (Fase 4)
+batch:
+  default-radius: 1000
+  sliding-window: 1
+  tps-threshold: 19.0
+  auto-unload-chunk: true
+  chunk-delay-ticks: 1
+  max-retries: 3
+  token-validity-seconds: 120

@@ -1,0 +1,43 @@
+# ==============================================================
+#            InfinityRoads - Git Ignore Rules
+# ==============================================================
+
+# Maven Build Output
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# External Repositories / Submodules
+coreprotect/
+
+# IDE Configuration
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+
+# Runtime Data and Logs
+*.log
+audit.log
+queue.json
+.system_generated/
